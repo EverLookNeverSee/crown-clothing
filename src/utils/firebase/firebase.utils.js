@@ -25,14 +25,15 @@ provider.setCustomParameters({prompt: "select_account"});
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 export const db = getFirestore();
-export const createUserDocumentFromAuth = async userAuth => {
+export const createUserDocumentFromAuth = async (userAuth, additionalUserInfo = {}) => {
+	if (!userAuth) return;
 	const userDocRef = doc(db, "users", userAuth.uid);
 	const userSnapshot = await getDoc(userDocRef);
 	if (!userSnapshot.exists()) {
 		const {displayName, email} = userAuth;
 		const createdAt = new Date();
 		try {
-			await setDoc(userDocRef, {displayName, email, createdAt});
+			await setDoc(userDocRef, {displayName, email, createdAt, ...additionalUserInfo});
 		} catch (err) {
 			console.log(`Error in creating the user: ${err.message}`);
 		}
