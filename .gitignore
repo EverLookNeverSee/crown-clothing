@@ -431,3 +431,4 @@ $RECYCLE.BIN/
 /.idea/vcs.xml
 /.idea/codeStyles/Project.xml
 /.idea/codeStyles/codeStyleConfig.xml
+/build/*
