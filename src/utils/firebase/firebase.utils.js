@@ -8,7 +8,7 @@ import {
 	signOut,
 	onAuthStateChanged,
 } from "firebase/auth";
-import {getFirestore, doc, getDoc, setDoc} from "firebase/firestore";
+import {getFirestore, doc, getDoc, setDoc, collection, writeBatch} from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -28,6 +28,9 @@ provider.setCustomParameters({prompt: "select_account"});
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 export const db = getFirestore();
+export const addCollelctionsAndDocuments = async (collectionKey, objectsToAdd) => {
+	const collectionRef = collection(db, collectionKey);
+};
 export const createUserDocumentFromAuth = async (userAuth, additionalUserInfo = {}) => {
 	if (!userAuth) return;
 	const userDocRef = doc(db, "users", userAuth.uid);
